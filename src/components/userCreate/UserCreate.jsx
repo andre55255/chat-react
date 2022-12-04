@@ -1,9 +1,9 @@
 import React from "react";
 import { Container, Stack, Typography } from "@mui/material";
 import userImg from "../../assets/user.png";
-import LoginForm from "../forms/login/LoginForm";
+import UserCreateForm from "../forms/userCreate/UserCreateForm";
 
-export default function Login() {
+export default function UserCreate() {
     return (
         <Container
             fluid={true}
@@ -18,9 +18,9 @@ export default function Login() {
             >
                 <img src={userImg} alt="imagem usuário" loading="lazy" />
                 <Typography variant="button" display="block">
-                    Faça seu login
+                    Criar usuário
                 </Typography>
-                <LoginForm />
+                <UserCreateForm />
             </Stack>
         </Container>
     );

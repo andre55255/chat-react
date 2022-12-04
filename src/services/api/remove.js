@@ -1,6 +1,7 @@
 import api from "./configApi";
+import { refreshService } from "../account/refreshService";
 
-export const deleteRequest = async (path, authorization = {}) => {
+export const deleteRequest = async (path, authorization = {}, isRecursive = false) => {
     let response = {
         success: false,
         message: "",
@@ -24,6 +25,12 @@ export const deleteRequest = async (path, authorization = {}) => {
                             response.statusCode = 400;
                             break;
                         case 401:
+                            if (!isRecursive) {
+                                const resultRefresh = await refreshService();
+                                if (resultRefresh) {
+                                    return await deleteRequest(path, authorization, true);
+                                }
+                            }
                             response.message = "Acesso negado";
                             response.statusCode = 401;
                             break;

@@ -2,29 +2,30 @@ import React, { useState } from "react";
 import { Field } from "formik";
 import { TextField } from "formik-material-ui";
 import TemplateForm from "../template/TemplateForm";
-import validationSchema from "../../../validations/login/loginSchema";
+import validationSchema from "../../../validations/userCreate/userCreateSchema";
 import SnackBarCustom from "../../snackBar/SnackBarCustom";
-import { loginService } from "../../../services/account/loginService";
-import { setLocalStorage } from "../../../helpers/staticMethods";
-import { keyLocalStorage, pathRoutes } from "../../../helpers/constants";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { pathRoutes } from "../../../helpers/constants";
+import { createUserService } from "../../../services/user/createUser";
 
-export default function LoginForm() {
+export default function UserCreateForm() {
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
     const [isError, setIsError] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
 
     const initialValues = {
+        firstname: "",
+        lastname: "",
         login: "",
         password: "",
     };
 
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
-            const result = await loginService(values);
-
+            const result = await createUserService(values);
+            
             setSubmitting(false);
             setMessage(result.message);
 
@@ -32,12 +33,11 @@ export default function LoginForm() {
                 setIsError(true);
             }
 
-            setLocalStorage(keyLocalStorage.accessToken, result.object.accessToken);
-            setLocalStorage(keyLocalStorage.refreshToken, result.object.refreshToken);
             setIsSuccess(true);
+            navigate(pathRoutes.homeLogin);
         } catch (err) {
             console.log(err);
-            setMessage("Falha ao inesperada ao realizar requisição de login");
+            setMessage("Falha ao inesperada ao criar usuário");
             setIsError(true);
         }
     };
@@ -51,10 +51,26 @@ export default function LoginForm() {
             >
                 <Field
                     component={TextField}
+                    label="Primeiro Nome"
+                    name="firstname"
+                    type="text"
+                    variant="outlined"
+                />
+                <Field
+                    component={TextField}
+                    label="Sobrenome"
+                    name="lastname"
+                    type="text"
+                    variant="outlined"
+                    style={{ marginTop: ".5rem" }}
+                />
+                <Field
+                    component={TextField}
                     label="Login"
                     name="login"
                     type="text"
                     variant="outlined"
+                    style={{ marginTop: ".5rem" }}
                 />
                 <Field
                     component={TextField}
@@ -81,10 +97,12 @@ export default function LoginForm() {
                     />
                 )}
             </TemplateForm>
-            <Button onClick={() => {
-                navigate(pathRoutes.createUser);
-            }}>
-                Criar conta
+            <Button
+                onClick={() => {
+                    navigate(pathRoutes.homeLogin);
+                }}
+            >
+                Login
             </Button>
         </>
     );

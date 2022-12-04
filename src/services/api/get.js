@@ -1,6 +1,7 @@
 import api from "./configApi";
+import { refreshService } from "../account/refreshService";
 
-export const getRequest = async (path, authorization = {}) => {
+export const getRequest = async (path, authorization = {}, isRecursive = false) => {
     let response = {
         success: false,
         message: "",
@@ -24,6 +25,12 @@ export const getRequest = async (path, authorization = {}) => {
                             response.statusCode = 400;
                             break;
                         case 401:
+                            if (!isRecursive) {
+                                const resultRefresh = await refreshService();
+                                if (resultRefresh) {
+                                    return await getRequest(path, authorization, true);
+                                }
+                            }
                             response.message = "Acesso negado";
                             response.statusCode = 401;
                             break;

@@ -1,9 +1,17 @@
 export const pathRoutes = {
     homeLogin: "/",
+    createUser: "/create/user"
 };
 
 export const endpoints = {
-    login: "/account/login"
+    login: "/account/login",
+    refresh: "/account/refresh",
+    createUser: "/user"
 };
 
 export const eventsWebSocket = {};
+
+export const keyLocalStorage = {
+    accessToken: "aslnc-kjhdo25-csa",
+    refreshToken: "danjc52-6351ac-5aa",
+};
