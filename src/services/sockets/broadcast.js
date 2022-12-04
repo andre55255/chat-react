@@ -1,8 +1,6 @@
-import { getSocketConnection } from "./connect";
 import { eventsWebSocket } from "../../helpers/constants";
 
-export const receiveMessages = (setMessages, isRecursive = false) => {
-    const io = getSocketConnection({ room: "*" });
+export const receiveMessages = (io, setMessages, isRecursive = false) => {
     try {
         io.on(eventsWebSocket.previousMessageBroadcast, (response) => {
             const messages = response.map((item) => {
@@ -17,15 +15,28 @@ export const receiveMessages = (setMessages, isRecursive = false) => {
 
             setMessages(messages);
         });
+        return true;
     } catch (err) {
         console.log(err);
         if (!isRecursive) {
-            const res = receiveMessages(io, true);
+            const res = receiveMessages(setMessages, true);
             return res;
         }
-        return {
-            success: false,
-            message: "Falha inpesperada ao recuperar mensagens broadcast",
-        };
+        return false;
+    }
+};
+
+export const handleMessage = (io, message, isRecursive = false) => {
+    try {
+        io.emit(eventsWebSocket.sendMessageBroadcast, { message });
+
+        return true;
+    } catch (err) {
+        console.log(err);
+        if (!isRecursive) {
+            const res = handleMessage(message, true);
+            return res;
+        }
+        return false;
     }
 };

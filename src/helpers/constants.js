@@ -12,7 +12,9 @@ export const endpoints = {
 };
 
 export const eventsWebSocket = {
-    previousMessageBroadcast: "previousMessagesBroadcast"
+    previousMessageBroadcast: "previousMessagesBroadcast",
+    sendMessageBroadcast: "sendMessageBroadcast",
+    receiveMessageBroadcast: "receiveMessageBroadcast"
 };
 
 export const keyLocalStorage = {
