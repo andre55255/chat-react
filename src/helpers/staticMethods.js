@@ -12,6 +12,10 @@ export const getLocalStorage = (key) => {
     return localStorage.getItem(key);
 };
 
+export const clearLocalStorage = () => {
+    localStorage.clear();
+}
+
 export const buildAuthorization = () => {
 
     const token = getLocalStorage(keyLocalStorage.accessToken);
@@ -24,4 +28,14 @@ export const buildAuthorization = () => {
             Authorization: "Bearer " + token,
         },
     };
+};
+
+export const formatDate = (date) => {
+    const dateObj = new Date(date),
+        day = dateObj.getDate().toString(),
+        dayF = day.length === 1 ? "0" + day : day,
+        month = (dateObj.getMonth() + 1).toString(),
+        monthF = month.length === 1 ? "0" + month : month,
+        yearF = dateObj.getFullYear();
+    return dayF + "/" + monthF + "/" + yearF;
 };

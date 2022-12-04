@@ -1,11 +1,13 @@
 export const pathRoutes = {
     homeLogin: "/",
-    createUser: "/create/user"
+    createUser: "/create/user",
+    chatMain: "/chat"
 };
 
 export const endpoints = {
     login: "/account/login",
     refresh: "/account/refresh",
+    userInfo: "/account/userInfo",
     createUser: "/user"
 };
 

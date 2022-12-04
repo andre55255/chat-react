@@ -32,9 +32,16 @@ export default function LoginForm() {
                 setIsError(true);
             }
 
-            setLocalStorage(keyLocalStorage.accessToken, result.object.accessToken);
-            setLocalStorage(keyLocalStorage.refreshToken, result.object.refreshToken);
+            setLocalStorage(
+                keyLocalStorage.accessToken,
+                result.object.accessToken
+            );
+            setLocalStorage(
+                keyLocalStorage.refreshToken,
+                result.object.refreshToken
+            );
             setIsSuccess(true);
+            navigate(pathRoutes.chatMain);
         } catch (err) {
             console.log(err);
             setMessage("Falha ao inesperada ao realizar requisição de login");
@@ -81,9 +88,11 @@ export default function LoginForm() {
                     />
                 )}
             </TemplateForm>
-            <Button onClick={() => {
-                navigate(pathRoutes.createUser);
-            }}>
+            <Button
+                onClick={() => {
+                    navigate(pathRoutes.createUser);
+                }}
+            >
                 Criar conta
             </Button>
         </>

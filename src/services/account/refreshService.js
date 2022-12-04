@@ -2,6 +2,7 @@ import { postRequest } from "../api/post";
 import { endpoints, keyLocalStorage } from "../../helpers/constants";
 import {
     getLocalStorage,
+    setLocalStorage,
     buildAuthorization,
 } from "../../helpers/staticMethods";
 
@@ -22,9 +23,13 @@ export const refreshService = async () => {
                 message: result.message,
             };
         }
+        setLocalStorage(keyLocalStorage.accessToken, result.object.accessToken);
+        setLocalStorage(
+            keyLocalStorage.refreshToken,
+            result.object.refreshToken
+        );
         return {
             success: true,
-            message: result.message,
         };
     } catch (err) {
         console.log(err);

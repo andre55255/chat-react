@@ -27,8 +27,9 @@ export const deleteRequest = async (path, authorization = {}, isRecursive = fals
                         case 401:
                             if (!isRecursive) {
                                 const resultRefresh = await refreshService();
-                                if (resultRefresh) {
-                                    return await deleteRequest(path, authorization, true);
+                                if (resultRefresh.success) {
+                                    response = await deleteRequest(path, authorization, true);
+                                    return response;
                                 }
                             }
                             response.message = "Acesso negado";

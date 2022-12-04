@@ -27,8 +27,9 @@ export const postRequest = async (path, body, authorization = {}, isRecursive = 
                         case 401:
                             if (!isRecursive) {
                                 const resultRefresh = await refreshService();
-                                if (resultRefresh) {
-                                    return await postRequest(path, body, authorization, true);
+                                if (resultRefresh.success) {
+                                    response = await postRequest(path, body, authorization, true);
+                                    return response;
                                 }
                             }
                             response.message = "Acesso negado";
