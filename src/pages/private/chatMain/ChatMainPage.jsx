@@ -1,5 +1,11 @@
 import React from "react";
+import HeaderChat from "../../../components/chat/HeaderChat";
+import { Star } from "@mui/icons-material";
 
 export default function ChatMainPage() {
-    return <h1>Hello</h1>;
+    return (
+        <>
+            <HeaderChat icon={<Star />} title="Geral" />
+        </>
+    );
 }

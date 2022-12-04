@@ -53,7 +53,7 @@ export default function ListContacts() {
                                 <Star />
                             </Avatar>
                         </ListItemAvatar>
-                        <ListItemText>Todos</ListItemText>
+                        <ListItemText>Geral</ListItemText>
                     </ListItemButton>
                 </ListItem>
             </List>
