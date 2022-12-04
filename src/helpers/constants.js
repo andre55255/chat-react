@@ -11,7 +11,9 @@ export const endpoints = {
     createUser: "/user"
 };
 
-export const eventsWebSocket = {};
+export const eventsWebSocket = {
+    previousMessageBroadcast: "previousMessagesBroadcast"
+};
 
 export const keyLocalStorage = {
     accessToken: "aslnc-kjhdo25-csa",

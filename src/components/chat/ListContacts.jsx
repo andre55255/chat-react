@@ -20,6 +20,7 @@ export default function ListContacts() {
         <Paper
             style={{
                 minHeight: "100vh",
+                backgroundColor: "#fcf5f5"
             }}
         >
             <Stack
@@ -43,7 +44,7 @@ export default function ListContacts() {
             <List
                 sx={{
                     width: "100%",
-                    bgcolor: "background.paper",
+                    bgcolor: "#fcf5f5",
                 }}
             >
                 <ListItem disablePadding>
